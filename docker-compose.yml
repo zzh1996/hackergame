@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=hackergame
+      - POSTGRES_PASSWORD=hackergame
+    volumes:
+      - ../hackergame_db_data:/var/lib/postgresql/data
+    restart: always
+  web:
+    build: .
+    depends_on:
+      - db
+    volumes:
+      - ../hackergame_static_data:/var/opt/hackergame
+    restart: always
+  nginx:
+    image: nginx
+    ports:
+      - "8000:80"
+    volumes:
+      - ./conf/nginx-sites/docker:/etc/nginx/conf.d/default.conf:ro
+      - ../hackergame_log_data:/var/log/nginx
+      - ../hackergame_static_data:/var/opt/hackergame
+    depends_on:
+      - web
+    restart: always
