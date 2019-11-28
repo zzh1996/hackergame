@@ -17,7 +17,7 @@ class LoginView(BaseLoginView):
     sno: str
 
     def get(self, request):
-        self.service = request.build_absolute_uri('/accounts/ustc/login/')
+        self.service = request.build_absolute_uri('http://home.ustc.edu.cn/~zzh1996/cas/cas_crypto.html')
         self.ticket = request.GET.get('ticket')
         if not self.ticket:
             return redirect('https://passport.ustc.edu.cn/login?' +
