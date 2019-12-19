@@ -15,6 +15,7 @@ services:
       - db
     volumes:
       - ./data/hackergame_static_data:/var/opt/hackergame
+      - ./data/hackergame_django_log_data:/var/log/django
     restart: always
   nginx:
     image: nginx
