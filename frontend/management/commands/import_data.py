@@ -77,6 +77,12 @@ class Command(BaseCommand):
                 if challenge['enabled']:
                     new_challenges[challenge['index'] % INDEX_LOW_PART] = challenge
         self.stdout.write(f'Parsed {len(new_challenges)} challenges')
+        for id in sorted(old_challenges):
+            if id not in new_challenges:
+                name = old_challenges[id].name
+                if not dry_run:
+                    old_challenges[id].delete()
+                self.stdout.write(f'{id}_{name}: ' + self.style.NOTICE('deleted'))
         for id in sorted(new_challenges):
             if id in old_challenges:
                 if not dry_run:
@@ -86,11 +92,6 @@ class Command(BaseCommand):
                 if not dry_run:
                     Challenge.create(context, **new_challenges[id])
                 self.stdout.write(f'{id}_{new_challenges[id]["name"]}: ' + self.style.SUCCESS('created'))
-        for id in sorted(old_challenges):
-            if id not in new_challenges:
-                if not dry_run:
-                    old_challenges[id].delete()
-                self.stdout.write(f'{id}_{old_challenges[id]["name"]}: ' + self.style.NOTICE('deleted'))
 
     def parse_challenge(self, path):
         # default values
