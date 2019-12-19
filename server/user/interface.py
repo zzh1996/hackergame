@@ -41,24 +41,12 @@ class User:
     groups = {
         'staff': '管理员',
         'ustc': '中国科学技术大学',
-        'jlu': '吉林大学',
-        'nankai': '南开大学',
-        'bupt': '北京邮电大学',
-        'cqu': '重庆大学',
-        'hit': '哈尔滨工业大学',
-        'neu': '东北大学',
         'other': '其他选手',
         'banned': '已封禁',
     }
     profile_required = {
         'staff': ['nickname'],
         'ustc': ['nickname', 'name', 'sno', 'tel', 'email', 'gender'],
-        'jlu': ['nickname', 'sno', 'email'],
-        'nankai': ['nickname', 'name', 'sno', 'tel'],
-        'bupt': ['nickname', 'name', 'sno', 'gender', 'school', 'grade'],
-        'cqu': ['nickname', 'sno'],
-        'hit': ['nickname', 'sno', '/qq/tel/1'],
-        'neu': ['nickname', 'name', 'sno'],
         'other': ['nickname'],
         'banned': ['nickname'],
     }
