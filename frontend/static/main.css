@@ -58,7 +58,7 @@ table {
 .content {
     margin: 0 auto 2em;
     padding: 0 1em;
-    max-width: 72em;
+    max-width: 80em;
 }
 @media screen and (min-width: 48em) {
     .content {
@@ -109,12 +109,14 @@ h1 {
     font-size: 1.75em;
 }
 .challenges {
+    font-size: smaller;
     float: right;
     width: 100%;
 }
 @media screen and (min-width: 48em) {
     .challenges {
-        max-width: 25em;
+        font-size: smaller;
+        max-width: 40em;
         margin-left: 1em;
     }
 }
