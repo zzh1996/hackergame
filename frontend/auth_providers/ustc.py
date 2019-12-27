@@ -1,12 +1,17 @@
 from urllib.parse import urlencode
 from urllib.request import urlopen
+from urllib.error import URLError
 from xml.etree import ElementTree
+import logging
 
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.urls import path
 
 from .base import BaseLoginView
+
+
+logger = logging.getLogger(__name__)
 
 
 class LoginView(BaseLoginView):
@@ -27,11 +32,16 @@ class LoginView(BaseLoginView):
         return redirect('hub')
 
     def check_ticket(self):
-        with urlopen(
-            'https://passport.ustc.edu.cn/serviceValidate?' +
-            urlencode({'service': self.service, 'ticket': self.ticket}), timeout=15
-        ) as req:
-            tree = ElementTree.fromstring(req.read())[0]
+        try:
+            with urlopen(
+                'https://passport.ustc.edu.cn/serviceValidate?' +
+                urlencode({'service': self.service, 'ticket': self.ticket}), timeout=15
+            ) as req:
+                tree = ElementTree.fromstring(req.read())[0]
+        except URLError as e:
+            messages.error(self.request, '连接统一身份认证平台出错')
+            logging.exception(e)
+            return False
         cas = '{http://www.yale.edu/tp/cas}'
         if tree.tag != cas + 'authenticationSuccess':
             messages.error(self.request, '登录失败')

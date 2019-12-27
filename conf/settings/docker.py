@@ -20,6 +20,11 @@ DATABASES = {
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'file': {
+            'format': '%(asctime)s %(name)s %(levelname)s %(message)s',
+        },
+    },
     'handlers': {
         'file': {
             'level': 'ERROR',
