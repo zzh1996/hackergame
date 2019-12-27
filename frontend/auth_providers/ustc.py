@@ -29,7 +29,7 @@ class LoginView(BaseLoginView):
     def check_ticket(self):
         with urlopen(
             'https://passport.ustc.edu.cn/serviceValidate?' +
-            urlencode({'service': self.service, 'ticket': self.ticket})
+            urlencode({'service': self.service, 'ticket': self.ticket}), timeout=15
         ) as req:
             tree = ElementTree.fromstring(req.read())[0]
         cas = '{http://www.yale.edu/tp/cas}'
