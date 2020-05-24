@@ -40,7 +40,7 @@ def submission_to_str(submission):
     challenge_name = Challenge.get(context, submission["challenge"]).name
     time = submission["time"].astimezone()
     time = time.isoformat(sep=" ", timespec="seconds")
-    return f"{time}: [{user_nickname}] solved [{challenge_name}]"
+    return f"{time}: [{user_nickname}({submission["user"]})] solved [{challenge_name}]"
 
 
 @retry
